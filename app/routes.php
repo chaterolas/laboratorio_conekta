@@ -11,13 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
-  $redis = Redis::connection();
-
-  //$redis->set('name', 'Alain');
-
-	return View::make('hello', [
-      'name' => $redis->get('name')
-    ]);
+// , 'before' => 'authenticate'
+Route::group(['prefix' => 'api/v1'], function() {
+  Route::get('storage', ['as' => 'entry-point', 'uses' => 'ApiStorageController@store']);
 });
