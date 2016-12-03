@@ -7,23 +7,27 @@ class ApiStorageController extends BaseController {
 
   public function __construct(StorageService $storage_service) {
     $this->storage_service = $storage_service;
+
+    /* make sure the user is autheticated prior to use any functionality*/
+    $this->beforeFilter('auth');
   }
 
   public function store() {
-
-    $data = "HW";
-    $user = "USER";
+    $user = Auth::user();
 
     $found = false;
-
-    if( ($data = $this->storage_service->store($data, $user)) ) {
+    if( ($identifier = $this->storage_service->store($source_data, $user)) ) {
       $found = true;
     }
 
-    return json_encode([
+    return Response::json([
           'found' => $found,
-          'data' => $data
+          'identifier' => $identifier
       ]);
+  }
+
+  public function get() {
+    //$user = 
   }
 
 }

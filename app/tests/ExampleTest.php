@@ -7,10 +7,10 @@ class ExampleTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testBasicExample()
+	public function testExample()
 	{
-		$crawler = $this->client->request('GET', '/');
-		$this->assertTrue($this->client->getResponse()->isOk());
+		//$crawler = $this->client->request('GET', '/api/v1/storage');
+		//$this->assertTrue($this->client->getResponse()->isOk());
 	}
 
 }

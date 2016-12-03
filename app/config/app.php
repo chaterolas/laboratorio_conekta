@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => 'YourSecretKey!!!',
+	'key' => 'T6xxfSIK53TIouYVWF10SI3AFmSxyIiJ',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -120,7 +120,7 @@ return array(
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
-		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'Illuminate\Workbench\WorkbenchServiceProvider',		
 		'StorageServiceProvider',
 	),
 
@@ -187,8 +187,7 @@ return array(
 		'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
-		'View'            => 'Illuminate\Support\Facades\View',
-
+		'View'            => 'Illuminate\Support\Facades\View',		
 	),
 
 );

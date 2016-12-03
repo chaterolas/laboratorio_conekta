@@ -9,8 +9,11 @@ class RequestStorageTest extends TestCase {
    */
   public function testAvailableURL()
   {
-    $crawler = $this->client->request('GET', '/api/v1/storage');
-    $this->assertTrue($this->client->getResponse()->isOk());
+    //$crawler = $this->client->request('GET', '/api/v1/storage');
+    //$this->assertTrue($this->client->getResponse()->isOk());
+
+    $this->call('GET', '/api/v1/storage');
+    $this->assertResponseOk();
   }
 
 }

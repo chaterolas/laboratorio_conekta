@@ -55,12 +55,14 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'forge',
-			'username'  => 'forge',
-			'password'  => '',
+			'database'  => 'laboratorio_conekta',
+			'username'  => 'root',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
+			'options' =>  defined( 'PDO::MYSQL_ATTR_MAX_BUFFER_SIZE' ) ? 
+				[PDO::MYSQL_ATTR_MAX_BUFFER_SIZE => 16777216] : [],
 		),
 
 		'pgsql' => array(
