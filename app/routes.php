@@ -11,7 +11,27 @@
 |
 */
 
-// , 'before' => 'authenticate'
-Route::group(['prefix' => 'api/v1'], function() {
-  Route::get('storage', ['as' => 'entry-point', 'uses' => 'ApiStorageController@store']);
+Route::get("login", function() {
+  $user = new User;
+  $user->email = 'alain.chevanier@gmail.com';
+  $user->password = 'alain';
+
+  Auth::login($user);
+
+  return Response::json([
+      'success' => Auth::check(),
+      'user' => Auth::user()
+    ]);
+});
+
+Route::get("logout", function() {
+  Auth::logout();
+  return Response::json([
+      'success' => !Auth::check()    
+    ]);
+});
+
+Route::group(['prefix' => 'api/v1', 'before' => 'auth.basic'], function() {
+  Route::get('storage', ['as' => 'store-data', 'uses' => 'ApiStorageController@store']);
+  Route::get('get', ['as' => 'retrieve-data', 'uses' => 'ApiStorageController@get']);
 });

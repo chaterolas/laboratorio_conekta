@@ -1,6 +1,6 @@
 <?php
 
-class StorageServiceTest extends TestCase {
+class StorageServiceTest extends \TestCase {
 
   protected static $storage_service;
 
@@ -13,6 +13,8 @@ class StorageServiceTest extends TestCase {
   }
 
   public function setUp() {
+    parent::setUp();
+
     $this->data = new stdClass();
     $this->data->sensitive_information = "Hola Mundo!";
 
@@ -22,8 +24,6 @@ class StorageServiceTest extends TestCase {
     $this->timeout = Config::get('storage.sec_time_out');
 
     $this->robustness_size =  Config::get('storage.robustness_size');
-
-    parent::setUp();
   }
 
   /**

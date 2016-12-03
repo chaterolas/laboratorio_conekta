@@ -35,8 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest())
-	{
+	/*if(!Auth::check()) {
 		if (Request::ajax())
 		{
 			return Response::make('Unauthorized', 401);
@@ -45,7 +44,7 @@ Route::filter('auth', function()
 		{
 			return Redirect::guest('login');
 		}
-	}
+	}*/
 });
 
 
