@@ -123,11 +123,11 @@ class StorageServiceTest extends TestCase {
       $this->assertEquals($test_data[$i]->data, $data);
     }
 
-    //sleep($this->timeout);
+    sleep($this->timeout);
 
-    /*for($i=0; $i<$this->robustness_size; $i++) {
+    for($i=0; $i<$this->robustness_size; $i++) {
       $data = self::$storage_service->get($test_data[$i]->identifier, $test_users[$i]);
       $this->assertNull($data);
-    }*/
+    }
   }
 }
