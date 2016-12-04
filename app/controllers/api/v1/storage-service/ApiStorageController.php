@@ -14,35 +14,63 @@ class ApiStorageController extends BaseController {
    * Guarda la información contenida en source_data.
    */
   public function store() {
-    $user = Auth::user();
-
     $source_data = Input::get('source_data');
 
-    $success = false;
-    if( ($identifier = Storage::store($source_data, $user)) ) {
-      $success = true;
+    try {
+      $user = Auth::user();
+
+      $success = false;
+      if( ($identifier = Storage::store($source_data, $user)) ) {
+        $success = true;
+      }
+
+      $response = [ 
+        'success' => $success, 
+        'identifier' => $identifier
+      ];
+      $status = 200;
+    }
+    catch(Exception $e) {
+      $status = 500;
+      $response = [
+          'success' => false,
+          'message' => 'An error ocurred.',
+          'trace' => $e->getMessage()
+        ];
     }
 
-    return Response::json([
-          'success' => $success,
-          'identifier' => $identifier
-      ]);
+    return Response::json($response, $status);
   }
 
   /**
    * Regresa la información asociada al identificador
    */
   public function get($identifier) {
-    $user = Auth::user();
 
-    $success = false;
-    if( ($data = Storage::get($identifier, $user)) ) {
-      $success = true;
+    try {
+      $user = Auth::user();
+
+      $success = false;
+      if( ($data = Storage::get($identifier, $user)) ) {
+        $success = true;
+      }
+
+      $response = [ 
+        'success' => $success, 
+        'data' => $data
+      ];
+      $status = 200;
     }
+    catch(Exception $e) {
+      $status = 500;
+      $response = [
+          'success' => false,
+          'message' => 'An error ocurred.',
+          'trace' => $e->getMessage()
+        ];
+    }
+   
 
-    return Response::json([
-          'success' => $success,
-          'data' => $data
-      ]);
+    return Response::json($response, $status);
   }
 }
