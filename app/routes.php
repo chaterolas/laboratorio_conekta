@@ -11,25 +11,9 @@
 |
 */
 
-Route::get("login", function() {
-  $user = new User;
-  $user->email = 'alain.chevanier@gmail.com';
-  $user->password = 'alain';
-
-  Auth::login($user);
-
-  return Response::json([
-      'success' => Auth::check(),
-      'user' => Auth::user()
-    ]);
-});
-
-Route::get("logout", function() {
-  Auth::logout();
-  return Response::json([
-      'success' => !Auth::check()    
-    ]);
-});
+Route::get("auth-test", ['before' => 'auth.basic', function() {
+  return Response::json(['success'=>true]);
+}]);
 
 Route::group(['prefix' => 'api/v1/storage', 'before' => 'auth.basic'], function() {
   Route::post('store', ['as' => 'store-data', 'uses' => 'ApiStorageController@store']);

@@ -14,9 +14,9 @@ class StorageService {
   public function store( /*stdClass*/ $data, \User $user) {
 
     // Uses bcrypt by default
-    $identifier = \Hash::make($user->email);
+    $identifier = sha1($user->email);
 
-    // Uses  AES encryption via the mcrypt PHP
+    // Uses AES encryption via the mcrypt PHP
     $data  = \Crypt::encrypt($data);
 
     // Reading timeout from configurations
@@ -42,7 +42,7 @@ class StorageService {
    * dle código
    */
   public function getPlain(/* String */ $identifier, \User $user) {
-    if( !\Hash::check($user->email, $identifier) ) {
+    if( sha1($user->email) != $identifier ) {
       return null;
     }
 

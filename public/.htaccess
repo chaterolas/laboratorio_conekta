@@ -3,10 +3,21 @@
         Options -MultiViews
     </IfModule>
 
+    Options -Indexes
+
+
+    # ErrorDocument 404 /errors/404-page-not-found.blade.php
+    # ErrorDocument 403 /errors/403-forbidden-access.blade.php
+
     RewriteEngine On
 
     # Redirect Trailing Slashes...
+    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Authorization Headers
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d

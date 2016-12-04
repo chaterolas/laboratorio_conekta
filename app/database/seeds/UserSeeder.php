@@ -6,15 +6,15 @@ class UserSeeder extends Seeder {
     {
         DB::table('users')->delete();
  
-        User::create(array(
-            'email' => 'firstuser',
+        User::create([
+            'email' => 'first@user.com',
             'password' => Hash::make('first_password')
-        ));
+        ]);
  
-        User::create(array(
-            'email' => 'seconduser',
+        User::create([
+            'email' => 'second@user.com',
             'password' => Hash::make('second_password')
-        ));
+        ]);
     }
  
 }

@@ -16,8 +16,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'redis',
-			//'file',
+	'driver' => 'file',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -58,7 +57,8 @@ return array(
 	|
 	*/
 
-	'connection' => array(
+	'connection' => null
+	/*array(
 		'cluster' => true,
 		'default' => array(
 			'host'     => '127.0.0.1',
@@ -66,7 +66,7 @@ return array(
 			'database' => 0,
 		),
 
-	),
+	)*/,
 
 	/*
 	|--------------------------------------------------------------------------
