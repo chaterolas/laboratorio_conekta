@@ -1,16 +1,17 @@
 <?php
 
 /*
- | Controlador par amanejar la información de manera persistente
+ | Controlador para manejar las peticiones guardar y traer información
+ | desde y hacia la base de datos que vive en memoria
  */
 class ApiStorageController extends BaseController {
 
-  public function __construct(StorageService $storage_service) {
-    $this->storage_service = $storage_service;
+  public function __construct() {
+    
   }
 
   /**
-   * Prueba para ejecutar 
+   * Guarda la información contenida en source_data.
    */
   public function store() {
     $user = Auth::user();
@@ -18,7 +19,7 @@ class ApiStorageController extends BaseController {
     $source_data = Input::get('source_data');
 
     $success = false;
-    if( ($identifier = $this->storage_service->store($source_data, $user)) ) {
+    if( ($identifier = Storage::store($source_data, $user)) ) {
       $success = true;
     }
 
@@ -29,15 +30,13 @@ class ApiStorageController extends BaseController {
   }
 
   /**
-   * 
+   * Regresa la información asociada al identificador
    */
-  public function get() {
+  public function get($identifier) {
     $user = Auth::user();
 
-    $identifier = Input::get('identifier');
-
     $success = false;
-    if( ($data = $this->storage_service->get($identifier, $user)) ) {
+    if( ($data = Storage::get($identifier, $user)) ) {
       $success = true;
     }
 

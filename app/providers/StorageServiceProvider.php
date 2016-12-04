@@ -1,17 +1,17 @@
 <?php
 
-class StorageServiceProvider extends  Illuminate\Support\ServiceProvider {
+class StorageServiceProvider extends Illuminate\Support\ServiceProvider {
 
     public function register()
     {
-        $this->app->singleton('storageService', function()
+        $this->app->singleton('StorageService', function()
         {
-            return new \StorageService;
+            return new Services\StorageService;
         });
     }
 
     public function setSettings(
-        \StorageService $storageService
+        Services\StorageService $storageService
       ) {
       dd($storageService);
     }

@@ -4,7 +4,8 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+		"mockery/mockery": "dev-master@dev"
 	},
 	"autoload": {
 		"classmap": [
@@ -12,6 +13,7 @@
 			"app/controllers",
 			"app/services",
 			"app/providers",
+			"app/facades",
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",

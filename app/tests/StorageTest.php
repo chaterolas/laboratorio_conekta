@@ -1,16 +1,6 @@
 <?php
 
-class StorageServiceTest extends \TestCase {
-
-  protected static $storage_service;
-
-  /**
-   * Inject dependency from application context.
-   * TODO: MOCKUP redis
-   */ 
-  public static function setUpBeforeClass() {
-      self::$storage_service = App::make('StorageService');
-  }
+class StorageTest extends \TestCase {
 
   public function setUp() {
     parent::setUp();
@@ -24,6 +14,8 @@ class StorageServiceTest extends \TestCase {
     $this->timeout = Config::get('storage.sec_time_out');
 
     $this->robustness_size =  Config::get('storage.robustness_size');
+
+    // Mocking Redis facade
   }
 
   /**
@@ -36,7 +28,7 @@ class StorageServiceTest extends \TestCase {
     $data = $this->data;
     $user = $this->user;
 
-    $identifier = self::$storage_service->store($data, $user);
+    $identifier = Storage::store($data, $user);
     $this->assertNotNull($identifier);
 
     return $identifier;
@@ -50,7 +42,7 @@ class StorageServiceTest extends \TestCase {
   public  function testGetNotPlain($identifier) {
     $user = $this->user;
 
-    $data = self::$storage_service->getPlain($identifier, $user);
+    $data = Storage::getPlain($identifier, $user);
     $this->assertNotEquals($this->data, $data);
   }
 
@@ -62,7 +54,7 @@ class StorageServiceTest extends \TestCase {
   public function testGet($identifier) {
     $user = $this->user;
 
-    $data = self::$storage_service->get($identifier, $user);
+    $data = Storage::get($identifier, $user);
     $this->assertEquals($this->data, $data);
   }
 
@@ -74,7 +66,7 @@ class StorageServiceTest extends \TestCase {
   public function testGetDifferentUser($identifier) {
     $user = new User;
     $user->email = 'alain.chevanier_2@gmail.com';
-    $data = self::$storage_service->get($identifier, $user);
+    $data = Storage::get($identifier, $user);
     $this->assertNull($data);
   }
 
@@ -86,7 +78,7 @@ class StorageServiceTest extends \TestCase {
   public function testGetInvalidIdendifier($identifier) {
     $user = $this->user;
     $identifier = str_random( count($identifier) );
-    $data = self::$storage_service->get($identifier, $user);
+    $data = Storage::get($identifier, $user);
     $this->assertNull($data);
   }
 
@@ -98,7 +90,7 @@ class StorageServiceTest extends \TestCase {
   public function testStoreTimeout($identifier) {
     $user = $this->user;
     sleep($this->timeout);
-    $data = self::$storage_service->get($identifier, $user);
+    $data = Storage::get($identifier, $user);
     $this->assertNull($data);
   }
 
@@ -117,16 +109,16 @@ class StorageServiceTest extends \TestCase {
       $test_data[$i] = new stdClass;
       $test_data[$i]->data = str_random(200);
       $test_data[$i]->identifier = 
-        self::$storage_service->store($test_data[$i]->data, $test_users[$i]);
+        Storage::store($test_data[$i]->data, $test_users[$i]);
 
-      $data = self::$storage_service->get($test_data[$i]->identifier, $test_users[$i]);
+      $data = Storage::get($test_data[$i]->identifier, $test_users[$i]);
       $this->assertEquals($test_data[$i]->data, $data);
     }
 
     sleep($this->timeout);
 
     for($i=0; $i<$this->robustness_size; $i++) {
-      $data = self::$storage_service->get($test_data[$i]->identifier, $test_users[$i]);
+      $data = Storage::get($test_data[$i]->identifier, $test_users[$i]);
       $this->assertNull($data);
     }
   }

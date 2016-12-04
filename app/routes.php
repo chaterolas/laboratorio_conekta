@@ -31,7 +31,7 @@ Route::get("logout", function() {
     ]);
 });
 
-Route::group(['prefix' => 'api/v1', 'before' => 'auth.basic'], function() {
-  Route::get('storage', ['as' => 'store-data', 'uses' => 'ApiStorageController@store']);
-  Route::get('get', ['as' => 'retrieve-data', 'uses' => 'ApiStorageController@get']);
+Route::group(['prefix' => 'api/v1/storage', 'before' => 'auth.basic'], function() {
+  Route::post('store', ['as' => 'store-data', 'uses' => 'ApiStorageController@store']);
+  Route::get('get/{identifier}', ['as' => 'retrieve-data', 'uses' => 'ApiStorageController@get']);
 });

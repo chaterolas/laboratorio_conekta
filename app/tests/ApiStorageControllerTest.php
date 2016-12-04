@@ -3,16 +3,6 @@
 
 class ApiStorageControllerTest extends \TestCase {
 
-  protected static $storage_service;
-
-  /**
-   * Inject dependency from application context.
-   * TODO: MOCKUP StorageService
-   */ 
-  public static function setUpBeforeClass() {
-    //self::$storage_service = App::make('StorageService');
-  }
-
   /**
    *
    */
@@ -24,7 +14,19 @@ class ApiStorageControllerTest extends \TestCase {
     $this->user = new User;
     $this->user->email = "alain.chevanier@gmail.com";
 
+    $this->identifier = "IDENTIFIER";
+
+    // Simulates login
     $this->be($this->user);
+
+    // Mocking storage facade
+    Storage::shouldReceive('store')->once()
+      ->with($this->data, $this->user)
+      ->andReturn($this->identifier);
+
+    Storage::shouldReceive('get')->once()
+      ->with($this->identifier, $this->user)
+      ->andReturn($this->data);
   }
 
 
@@ -34,7 +36,7 @@ class ApiStorageControllerTest extends \TestCase {
    * @test
    */
   public function testStore() {
-    $response = $this->action('GET', 'ApiStorageController@store', 
+    $response = $this->action('POST', 'ApiStorageController@store', 
         ['source_data' => $this->data]);
 
     $json_data = $response->getContent();
@@ -57,7 +59,7 @@ class ApiStorageControllerTest extends \TestCase {
    */
   public function testGet($identifier) {
     $response = $this->action('GET', 'ApiStorageController@get', 
-        ['identifier' => $identifier]);
+        ['identifier' => $this->identifier]);
     
     $json_data = $response->getContent();
     $this->assertNotNull($json_data);
