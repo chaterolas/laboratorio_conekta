@@ -42,11 +42,13 @@ Podemos probar con curl de la siguiente manera
 
  {"success":true,"identifier":"5075042ff9840a7c465cbfdf18c1a677ba157c53"}
 
- Ahora para consumir el dato que almacenamos en la base es necesario guardar el atributo identifier que obtuvimos en la respuesta de la petición anterior. Para leer el valor podemos probar ocn curl de la siguiente manera:
+ Ahora para consumir el dato que almacenamos en la base es necesario guardar el atributo identifier que obtuvimos en la respuesta de la petición anterior. Para leer el valor podemos probar con curl de la siguiente manera:
 
  curl --user first@user.com:first_password https://localhost:18000/api/v1/storage/get/5075042ff9840a7c465cbfdf18c1a677ba157c53
 
+Dicho comando regresa el siguiente resultado:
 
+{"success":true,"data":"03218000011835971"}
 
 ## Consideraciones de diseño
 
